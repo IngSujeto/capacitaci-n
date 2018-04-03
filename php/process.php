@@ -14,51 +14,21 @@
 
 	switch ($op->{"option"}) {
 		case 1:
-			$sql = "SELECT * FROM collection";
-			$statement = $cnn->prepare($sql);
-			$valor = $statement->execute();
-
-			if( $valor ){
-				while( $resultado = $statement->fetch(PDO::FETCH_ASSOC)){
-					$polygones["data"][] = $resultado;
-				}
-				echo json_encode($polygones);
-				}else{
-					echo "error";
-				}
-
-				$statement->closeCursor();
-				$conexion = null;
+			
 
 			break;
 		
 		case 2:
-			$search = $data[1]->{"search"};
-			$sql = "SELECT pointY AS lat, pointX AS lng FROM points WHERE idPolygone = ".$search->{"search"}."";
-			$statement = $cnn->prepare($sql);
-			$valor = $statement->execute();
-
-			if( $valor ){
-				while( $resultado = $statement->fetch(PDO::FETCH_ASSOC)){
-					$polygones["points"][] = $resultado;
-				}
-				echo json_encode($polygones);
-				}else{
-					echo "error";
-				}
-
-				$statement->closeCursor();
-				$conexion = null;
+			
 			break;
 
 		case 3:
-			$namePoly = $data[1]->{"namePoly"};
-			$points = $data[2]->{"points"};
+			$Datos = $data[1]->{"Datos"};
 
 			try {  
 				$statement = $cnn;
 				$statement ->beginTransaction();
-				$sql = "SELECT MAX(idPolygone) AS id FROM collection";
+				$sql = "SELECT MAX(idUsuario) AS id FROM usuarios";
 
 				$idQuery = $cnn->prepare($sql);
 				$idQuery->execute();
@@ -67,13 +37,12 @@
 
 				$id = (string)($resultado["id"]+1);
 
-				$sql = "INSERT INTO  collection (idPolygone, Name) values (".$id.",'".$namePoly->{"name"}."')";
+				$sql = "INSERT INTO  Usuarios (Nombre, ApPat, ApMat, Tel, CorreoE, Contrasena) 
+					values ('".$Datos[0]->{"Nombre"}."','".$Datos[1]->{"ApPat"}."','".$Datos[2]->{"ApMat"}."','".$Datos[3]->{"Tel"}."','".$Datos[4]->{"Mail"}."','".$Datos[11]->{"Pass"}."')";
 				$statement -> exec($sql);
 
-				for ($i=0; $i < count($points); $i++) { 
-					$sql = "INSERT INTO points (idPolygone, pointX, pointY) values (".$id.", ".$points[$i]->{"lng"}.", ".$points[$i]->{"lat"}.")";
-					$statement -> exec($sql);
-				}
+				$sql = "INSERT INTO Directorio (IdUsuario, Calle, Numero, Colonia, Ciudad, Estado, CodPostal) values (".$id.",'".$Datos[5]->{"Calle"}."',".$Datos[6]->{"Num"}.",'".$Datos[7]->{"Colonia"}."','".$Datos[8]->{"Ciudad"}."','".$Datos[9]->{"Estado"}."',".$Datos[10]->{"Postal"}.")";
+				$statement -> exec($sql);
 				
 				$statement -> commit();
 				echo true;

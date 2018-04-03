@@ -1,7 +1,7 @@
 <?php
 	class Conexion{
 		private $host = "localhost";
-		private $dbname = "polygone";
+		private $dbname = "capacitacion";
 		private $user = "root";
 		private $password = "";
 		private $conexion = null;
