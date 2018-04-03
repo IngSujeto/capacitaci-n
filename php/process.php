@@ -15,6 +15,35 @@
 	switch ($op->{"option"}) {
 		case 1:
 			
+			$sql = "SELECT
+					usuarios.Nombre AS Nombre,
+					usuarios.ApPat AS ApPat,
+					usuarios.ApMat AS ApMat,
+					usuarios.Tel AS Tel,
+					usuarios.CorreoE AS Mail,
+					directorio.Calle AS Calle,
+					directorio.Numero AS Num,
+					directorio.Colonia AS Colonia,
+					directorio.Ciudad AS Ciudad,
+					directorio.Estado AS Estado,
+					directorio.CodPostal AS Postal
+					FROM
+					usuarios
+					INNER JOIN directorio ON directorio.IdUsuario = usuarios.idUsuario";
+			$statement = $cnn->prepare($sql);
+			$valor = $statement->execute();
+
+			if( $valor ){
+				while( $resultado = $statement->fetch(PDO::FETCH_ASSOC)){
+					$lista["data"][] = $resultado;
+				}
+				echo json_encode($lista);
+				}else{
+					echo "error";
+				}
+
+				$statement->closeCursor();
+				$conexion = null;
 
 			break;
 		
