@@ -16,6 +16,7 @@
 		case 1:
 			
 			$sql = "SELECT
+					usuarios.idUsuario AS id,
 					usuarios.Nombre AS Nombre,
 					usuarios.ApPat AS ApPat,
 					usuarios.ApMat AS ApMat,
