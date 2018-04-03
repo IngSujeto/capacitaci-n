@@ -28,6 +28,11 @@
 			try {  
 				$statement = $cnn;
 				$statement ->beginTransaction();
+
+				$sql = "INSERT INTO  Usuarios (Nombre, ApPat, ApMat, Tel, CorreoE, Contrasena) 
+					values ('".$Datos[0]->{"Nombre"}."','".$Datos[1]->{"ApPat"}."','".$Datos[2]->{"ApMat"}."','".$Datos[3]->{"Tel"}."','".$Datos[4]->{"Mail"}."','".$Datos[11]->{"Pass"}."')";
+				$statement -> exec($sql);
+
 				$sql = "SELECT MAX(idUsuario) AS id FROM usuarios";
 
 				$idQuery = $cnn->prepare($sql);
@@ -35,11 +40,7 @@
 
 				$resultado = $idQuery->fetch(PDO::FETCH_ASSOC);
 
-				$id = (string)($resultado["id"]+1);
-
-				$sql = "INSERT INTO  Usuarios (Nombre, ApPat, ApMat, Tel, CorreoE, Contrasena) 
-					values ('".$Datos[0]->{"Nombre"}."','".$Datos[1]->{"ApPat"}."','".$Datos[2]->{"ApMat"}."','".$Datos[3]->{"Tel"}."','".$Datos[4]->{"Mail"}."','".$Datos[11]->{"Pass"}."')";
-				$statement -> exec($sql);
+				$id = (string)($resultado["id"]);
 
 				$sql = "INSERT INTO Directorio (IdUsuario, Calle, Numero, Colonia, Ciudad, Estado, CodPostal) values (".$id.",'".$Datos[5]->{"Calle"}."',".$Datos[6]->{"Num"}.",'".$Datos[7]->{"Colonia"}."','".$Datos[8]->{"Ciudad"}."','".$Datos[9]->{"Estado"}."',".$Datos[10]->{"Postal"}.")";
 				$statement -> exec($sql);

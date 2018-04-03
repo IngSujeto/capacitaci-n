@@ -1,8 +1,7 @@
 $(document).ready(function(){
 
   $('#guardar').submit(function(e){
-      e.preventDefault();
-      console.log("guardar");
+
       var Datos = [{"Nombre": document.getElementById("Nombre").value},
         {"ApPat": document.getElementById("ApPat").value},
         {"ApMat": document.getElementById("ApMat").value},
@@ -21,7 +20,6 @@ $(document).ready(function(){
       var data = [{"option":option},{"Datos":Datos}];
 
       data = JSON.stringify(data);
-      console.log(data);
 
       __ajax("php/process.php",{"data": data})
             .done(function(info){
