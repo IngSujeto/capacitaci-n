@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-04-03 16:16:03
+Date: 2018-04-03 21:28:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,13 +31,14 @@ CREATE TABLE `directorio` (
   PRIMARY KEY (`idDirectorio`),
   KEY `IdUsuario` (`IdUsuario`),
   CONSTRAINT `directorio_ibfk_1` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- ----------------------------
 -- Records of directorio
 -- ----------------------------
 INSERT INTO `directorio` VALUES ('27', '62', '', '34', '', 'Prolongacion San Sebastian', 'Puerto Moral', '21209');
 INSERT INTO `directorio` VALUES ('28', '63', '', '34', '', 'Plaza Maior', 'Calvarrasa de Arriba', '37191');
+INSERT INTO `directorio` VALUES ('29', '64', 'Pruebas', '777', 'Pruebas', 'Pruebas', 'Pruebas', '77876');
 
 -- ----------------------------
 -- Table structure for usuarios
@@ -52,10 +53,11 @@ CREATE TABLE `usuarios` (
   `CorreoE` varchar(50) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `Contrasena` varchar(16) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- ----------------------------
 -- Records of usuarios
 -- ----------------------------
 INSERT INTO `usuarios` VALUES ('62', 'Gisel', 'GuzmÃ¡n', 'Madera', '767983473', 'GiselGuzmanMadera@superrito.com', 'IeP9paich');
 INSERT INTO `usuarios` VALUES ('63', 'AngÃ©lica', 'BriseÃ±o', 'Valdivia', '711129826', 'AngelicaBrisenoValdivia@gustr.com', 'thai5ohk0Ae');
+INSERT INTO `usuarios` VALUES ('64', 'Pruebas', 'Pruebas', 'Pruebas', '7777777', 'Pruebas', 'ihifodshfdioshdf');

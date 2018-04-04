@@ -49,6 +49,23 @@
 			break;
 		
 		case 2:
+			$Datos = $data[1]->{"Datos"};
+
+			try {
+				$statement = $cnn;
+				$statement ->beginTransaction();
+
+				$sql = "DELETE FROM usuarios WHERE idUsuario =".$Datos->{"Id"};
+				$statement -> exec($sql);
+				
+				$statement -> commit();
+				echo true;
+
+			} catch (Exception $e) {
+				 $statement -> rollBack();
+				 echo "Fallo: " . $e->getMessage();
+			}
+			$conexion = null;
 			
 			break;
 
@@ -82,5 +99,29 @@
 				 echo "Fallo: " . $e->getMessage();
 			}
 			$conexion = null;
-			
+
+			break;
+		case 4:
+
+			$Datos = $data[1]->{"Datos"};
+
+			try {
+				$statement = $cnn;
+				$statement ->beginTransaction();
+
+				$sql = "UPDATE usuarios SET Nombre='".$Datos[1]->{"Nombre"}."', ApPat='".$Datos[2]->{"ApPat"}."', ApMat='".$Datos[3]->{"ApMat"}."', Tel=".$Datos[4]->{"Tel"}.", CorreoE='".$Datos[5]->{"Mail"}."', Contrasena='".$Datos[12]->{"Pass"}."' WHERE idUsuario = ".$Datos[0]->{"Id"};
+				$statement -> exec($sql);
+
+				$sql = "UPDATE directorio SET Calle='".$Datos[6]->{"Calle"}."', Numero=".$Datos[7]->{"Num"}.", Colonia='".$Datos[8]->{"Colonia"}."', Ciudad='".$Datos[9]->{"Ciudad"}."', Estado='".$Datos[10]->{"Estado"}."', CodPostal=".$Datos[11]->{"Postal"}." WHERE idUsuario =".$Datos[0]->{"Id"};
+				$statement -> exec($sql);
+				
+				$statement -> commit();
+				echo true;
+
+			} catch (Exception $e){
+				$statement -> rollBack();
+				echo "Fallo: " . $e->getMessage();
+			}
+
+			$conexion = null;
 	}

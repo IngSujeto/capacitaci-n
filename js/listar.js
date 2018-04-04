@@ -64,6 +64,66 @@ $(document).ready(function(){
   });
 });
 
+$(document).ready(function(){
+
+  $('#guardar').submit(function(e){
+      e.preventDefault();
+      var Datos = [{"Id": datos.data[document.getElementById("combo").value].id},
+        {"Nombre": document.getElementById("Nombre").value},
+        {"ApPat": document.getElementById("ApPat").value},
+        {"ApMat": document.getElementById("ApMat").value},
+        {"Tel": document.getElementById("Tel").value},
+        {"Mail": document.getElementById("Mail").value},
+        {"Calle": document.getElementById("Calle").value},
+        {"Num": document.getElementById("Num").value},
+        {"Colonia": document.getElementById("Colonia").value},
+        {"Ciudad": document.getElementById("Ciudad").value},
+        {"Estado": document.getElementById("Estado").value},
+        {"Postal": document.getElementById("Postal").value},
+        {"Pass": document.getElementById("Pass").value}
+      ];
+
+      var option = {"option":4};
+      var data = [{"option":option},{"Datos":Datos}];
+
+      data = JSON.stringify(data);
+
+      __ajax("php/process.php",{"data": data})
+            .done(function(info){
+              if (info){
+                alert("Seguardo con éxito");
+              }
+            });
+  });
+
+});
+
+$(document).ready(function(){
+
+  $('#Eliminar').submit(function(e){
+    
+      var Id = datos.data[document.getElementById("combo").value].id;
+      var Datos = {"Id":Id};
+
+      var option = {"option":2};
+      var data = [{"option":option},{"Datos":Datos}];
+
+      console.log(data);
+
+      data = JSON.stringify(data);
+
+      __ajax("php/process.php",{"data": data})
+            .done(function(info){
+              console.log(info);
+              if (info){
+                alert("Se elimino con éxito");
+                
+              }
+            });
+  });
+
+});
+
 
 function __ajax(url, data){
   var ajax = $.ajax({
